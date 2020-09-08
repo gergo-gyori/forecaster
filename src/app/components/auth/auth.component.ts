@@ -8,15 +8,12 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   @ViewChild('f', { static: false }) loginForm: NgForm;
   passwordHidden = true;
   passwordValid = false;
 
   constructor(private authService: AuthService) { }
-
-  ngOnInit() {
-  }
 
   onCheckPasswordLength() {
     this.passwordValid = this.loginForm.value.password.length > 3 || false;

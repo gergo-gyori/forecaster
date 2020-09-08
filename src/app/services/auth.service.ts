@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -6,31 +7,49 @@ import { User } from '../models/user.model';
 })
 export class AuthService{
   users: User[] = [];
+  activeUser: any;
+  activeUserChanged = new Subject<any>();
 
   constructor() {
-    this.users = JSON.parse(localStorage.getItem('users'));
+    this.getUsers();
   }
 
   login(username: string, password: string) {
-    const isUserRegistered = this.users.find(user => user.username === username);
+    const registeredUser = this.users.find(user => user.username === username);
 
-    if (isUserRegistered) {
-      console.log('user exists! go to weather page');
-      // navigate user to his weather-forecast page
+    if (registeredUser) {
+      registeredUser.password !== password ? console.log('Invalid password') : console.log('navigate to my weather page');
+      this.activeUserChanged.next(this.activeUser);
+
     } else {
-
+      // Refactor into function
       const id = (this.users.length > 0) ? this.users[this.users.length - 1].id + 1 : 0;
-
       const user: User = {
         id,
         username,
         password
       };
-
-      this.users.push(user);
-      localStorage.setItem('users', JSON.stringify(this.users));
+      this.persistUsers(user, this.users);
+      // navigate to my weather profile
     }
-    console.log(this.users);
+  }
+
+  logout() {
+    this.activeUser = '';
+    localStorage.setItem('activeUser', JSON.stringify(this.activeUser));
+    this.activeUserChanged.next(this.activeUser);
+  }
+
+  persistUsers(user: User, users: User[]) {
+    this.users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('activeUser', JSON.stringify(user));
+    this.activeUserChanged.next(this.activeUser);
+  }
+
+  getUsers() {
+    this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
+    this.users = JSON.parse(localStorage.getItem('users'));
   }
 
 }

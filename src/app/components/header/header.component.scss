@@ -1,0 +1,26 @@
+.header {
+  position: fixed;
+  display: flex;
+  background-color: rgb(58, 51, 51);
+  color: #fff;
+
+  &__title-logo-wrapper {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    color: rgb(114, 232, 236);
+    text-shadow: 1px 1px 1px rgba(98, 199, 230, 1);
+    margin-right: 0.5rem;
+  }
+
+  &__title {
+    letter-spacing: 0.1rem;
+  }
+
+  &__menu {
+    margin-left: auto;
+  }
+}
