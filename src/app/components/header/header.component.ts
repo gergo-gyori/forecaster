@@ -10,14 +10,12 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   appTitle = 'Forecaster';
   activeUser: any;
-  subscription: Subscription;
+  activeUserSubscription: Subscription;
 
   constructor(private authService: AuthService) {
     this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
-
-    this.subscription = this.authService.activeUserChanged.subscribe(activeUser => {
+    this.activeUserSubscription = this.authService.activeUserChanged.subscribe(activeUser => {
       this.activeUser = activeUser;
-      console.log(this.activeUser);
     });
   }
 
@@ -30,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.activeUserSubscription.unsubscribe();
   }
 
 }

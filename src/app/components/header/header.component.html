@@ -7,8 +7,8 @@
     <span class="header__title">{{appTitle}}</span>
   </span>
 
-  <button *ngIf="activeUser" mat-icon-button [matMenuTriggerFor]="menu" class="header__menu">
-    {{activeUser ? activeUser.username : 'logged-out'}}
+  <button *ngIf="activeUser" mat-button [matMenuTriggerFor]="menu" class="header__menu">
+    {{activeUser.username}}
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="onLogout()">
