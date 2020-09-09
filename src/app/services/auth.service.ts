@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   users: User[] = [];
-  activeUser: any;
+  activeUser = '';
   activeUserChanged = new Subject<any>();
 
   constructor(private router: Router) {
@@ -16,6 +16,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
+
     const registeredUser = this.users.find(user => user.username === username);
     if (registeredUser) {
 
@@ -62,7 +63,13 @@ export class AuthService {
 
   getUsers() {
     this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
-    this.users = JSON.parse(localStorage.getItem('users')).length !== 0 ? JSON.parse(localStorage.getItem('users')) : [];
+    this.users = localStorage.getItem('users') !== null ? JSON.parse(localStorage.getItem('users')) : [];
+  }
+
+  handleActiveUser() {
+    this.activeUserChanged.subscribe(activeUser => {
+      localStorage.setItem('activeUser', JSON.stringify(activeUser));
+    });
   }
 
 }

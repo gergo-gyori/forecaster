@@ -1,5 +1,30 @@
-<mat-tab-group animationDuration="1000ms" class="weather-content">
-  <mat-tab label="First">Content 1</mat-tab>
-  <mat-tab label="Second">Content 2</mat-tab>
-  <mat-tab label="Third">Content 3</mat-tab>
+<mat-tab-group animationDuration="1000ms" class="weather">
+  <mat-tab label="First">
+    <div class="weather__content">
+
+      <section class="weather__current"
+        [ngClass]="{'weather__current-day': weatherData?.isDay, 'weather__current-night': !weatherData?.isDay}">
+
+        <div class="weather__current-icon">
+          <mat-icon *ngIf="weatherData?.isDay">wb_sunny</mat-icon>
+          <mat-icon *ngIf="!weatherData?.isDay">nights_stay</mat-icon>
+        </div>
+
+        <div class="weather__current-heading">
+          <div class="weather__current-city">{{weatherData?.city | uppercase}}</div>
+          <div class="weather__current-temp">{{weatherData?.temperature}}&#176;</div>
+        </div>
+
+        <div class="weather__current-details">
+          <div class="weather__current-humidity">Humidity: {{weatherData?.humidity}}%</div>
+          <div class="weather__current-pressure">Atm pressure: {{weatherData?.atmosphericPressure}} hPa</div>
+          <span class="weather__current-wind-direction">Wind direction: {{weatherData?.windDirection}}&#176;</span>
+          <span class="weather__current-wind-speed">Wind speed: {{weatherData?.windSpeed}} m/h</span>
+        </div>
+      </section>
+
+      <section class="weather__forecast">5 day forecast line-chart</section>
+    </div>
+  </mat-tab>
+
 </mat-tab-group>
