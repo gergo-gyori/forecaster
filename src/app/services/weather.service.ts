@@ -8,23 +8,27 @@ import { WeatherData } from '../models/weather-data.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  weatherData: any;
+  apiKey = 'e4edd2bd339b9006f48f4e517e2a60f0';
+  currentWeatherData: any;
+  forecastWeatherData: any;
 
   constructor(private http: HttpClient) { }
 
-  getCurrentWeather(city: string): Observable<WeatherData> {
+
+  fetchCurrentWeather(city: string): Observable<WeatherData> {
     return this.http.get<Observable<any>>(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e4edd2bd339b9006f48f4e517e2a60f0`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey}`
     )
       .pipe(map(responseData => {
-        this.weatherData = responseData;
-        const data = this.initWeatherData(city, this.weatherData);
+        this.currentWeatherData = responseData;
+        const data = this.initCurrentWeatherData(city, this.currentWeatherData);
 
         return data;
       }));
   }
 
-  initWeatherData(city: string, weatherData: any): WeatherData {
+
+  initCurrentWeatherData(city: string, weatherData: any): WeatherData {
     const data: WeatherData = {
       userId: JSON.parse(localStorage.getItem('activeUser')).id,
       city,
@@ -36,6 +40,40 @@ export class WeatherService {
       isDay: new Date().getTime() < new Date(weatherData.sys.sunset * 1000).getTime()
     };
     return data;
+  }
+
+
+  fetchFiveDayForecast(city: string): Observable<any> {
+    return this.http.get(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${this.apiKey}`
+    )
+      .pipe(map(responseData => {
+        this.forecastWeatherData = responseData;
+        const data = this.initForecastData(city, this.forecastWeatherData);
+
+        return data;
+      }));
+  }
+
+
+  initForecastData(city: string, forecastData: any) {
+    const forecastChartData = [
+      {
+        name: city.charAt(0).toUpperCase() + city.slice(1),
+        series: []
+      }
+    ];
+
+    forecastData.list.forEach(current => {
+      forecastChartData[0].series.push(
+        {
+          name: new Date(current.dt * 1000),
+          value: (current.main.temp - 272.15).toFixed(0)
+        }
+      );
+    });
+
+    return forecastChartData;
   }
 
 }

@@ -23,7 +23,22 @@
         </div>
       </section>
 
-      <section class="weather__forecast">5 day forecast line-chart</section>
+      <section class="weather__forecast">
+        <ngx-charts-line-chart
+        [view]="[700,400]"
+        [scheme]="{domain: ['#0066ff']}"
+        [results]="forecastData"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="'5 Day / 3 Hour Forecast'"
+        [yAxisLabel]="'Temperature (&#8451;)'"
+        >
+        
+        </ngx-charts-line-chart>
+      </section>
     </div>
   </mat-tab>
 

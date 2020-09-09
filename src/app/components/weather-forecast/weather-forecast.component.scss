@@ -52,12 +52,13 @@
     }
 
     &-night {
-      background: linear-gradient(
-        357deg,
-        rgba(13, 17, 37, 1) 18%,
-        rgba(13, 25, 78, 1) 43%,
-        rgba(26, 43, 116, 1) 96%
-      );
+      background-image: linear-gradient(
+          357deg,
+          rgba(11, 21, 75, 0.3) 18%,
+          rgba(20, 38, 121, 0.6) 43%,
+          rgba(8, 34, 153, 0.5) 96%
+        ),
+        url("../../../assets/night.jpg");
     }
 
     &-icon > * {
@@ -67,7 +68,7 @@
         0 0 1rem rgba(128, 246, 240, 0.966), 0 0 2rem rgba(122, 243, 237, 0.966),
         0 0 2rem rgba(214, 253, 251, 0.966), 0 0 2rem rgba(214, 253, 251, 0.966),
         0 0 2rem rgba(214, 253, 251, 0.966);
-        margin-left: -1rem;
+      margin-left: -1rem;
     }
   }
 }
