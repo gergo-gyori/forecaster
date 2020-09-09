@@ -12,7 +12,7 @@ export class AuthService {
   activeUserChanged = new Subject<any>();
 
   constructor(private router: Router) {
-    this.getUsers();
+      this.getUsers();
   }
 
   login(username: string, password: string) {
@@ -62,7 +62,7 @@ export class AuthService {
 
   getUsers() {
     this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
-    this.users = JSON.parse(localStorage.getItem('users'));
+    this.users = JSON.parse(localStorage.getItem('users')).length !== 0 ? JSON.parse(localStorage.getItem('users')) : [];
   }
 
 }

@@ -6,4 +6,5 @@ export interface WeatherData {
     atmosphericPressure: number;
     windSpeed: number;
     windDirection: number;
+    isDay: boolean;
 }

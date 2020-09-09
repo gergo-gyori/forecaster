@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {AppMaterialModule} from './app.material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +22,7 @@ import { WeatherForecastComponent } from './components/weather-forecast/weather-
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     AppMaterialModule,
     AppRoutingModule
   ],
