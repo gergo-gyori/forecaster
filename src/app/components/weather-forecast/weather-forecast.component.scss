@@ -8,4 +8,15 @@
 
     margin-top: 5rem;
   }
+
+  &__add-btn {
+    width: 9rem;
+    height: 5rem;
+  }
+
+  &__remove-btn {
+    position: absolute;
+    bottom: 40%;
+    right: 5%;
+  }
 }

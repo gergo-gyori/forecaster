@@ -13,6 +13,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
 import { CurrentWeatherWidgetComponent } from './components/weather-forecast/current-weather-widget/current-weather-widget.component';
 import { ForecastLineChartComponent } from './components/weather-forecast/forecast-line-chart/forecast-line-chart.component';
+import { CityDialogComponent } from './components/weather-forecast/city-dialog/city-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,10 @@ import { ForecastLineChartComponent } from './components/weather-forecast/foreca
     AuthComponent,
     WeatherForecastComponent,
     CurrentWeatherWidgetComponent,
-    ForecastLineChartComponent
+    ForecastLineChartComponent,
+    CityDialogComponent
   ],
+  entryComponents: [CityDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
