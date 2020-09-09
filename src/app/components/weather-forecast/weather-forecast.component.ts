@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { WeatherData } from 'src/app/models/weather-data.model';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -11,8 +9,8 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather-forecast.component.scss']
 })
 export class WeatherForecastComponent implements OnInit {
-  city = 'budapest';
-  weatherData: WeatherData;
+  city = 'alaska ';
+  currentWeatherData: WeatherData;
   forecastData: any[] = [];
 
   constructor(private weatherService: WeatherService) { }
@@ -24,7 +22,7 @@ export class WeatherForecastComponent implements OnInit {
 
   getCurrentWeather() {
     this.weatherService.fetchCurrentWeather(this.city).subscribe(currentWeatherData => {
-      this.weatherData = currentWeatherData;
+      this.currentWeatherData = currentWeatherData;
     });
   }
 

@@ -1,0 +1,19 @@
+<section class="weather__current"
+  [ngClass]="{'weather__current-day': currentWeatherData?.isDay, 'weather__current-night': !currentWeatherData?.isDay}">
+  <div class="weather__current-icon">
+    <mat-icon *ngIf="currentWeatherData?.isDay">wb_sunny</mat-icon>
+    <mat-icon *ngIf="!currentWeatherData?.isDay">nights_stay</mat-icon>
+  </div>
+
+  <div class="weather__current-heading">
+    <div class="weather__current-city">{{currentWeatherData?.city | uppercase}}</div>
+    <div class="weather__current-temp">{{currentWeatherData?.temperature}}&#176;</div>
+  </div>
+
+  <div class="weather__current-details">
+    <div class="weather__current-humidity">Humidity: {{currentWeatherData?.humidity}}%</div>
+    <div class="weather__current-pressure">Atm pressure: {{currentWeatherData?.atmosphericPressure}} hPa</div>
+    <span class="weather__current-wind-direction">Wind direction: {{currentWeatherData?.windDirection}}&#176;</span>
+    <span class="weather__current-wind-speed">Wind speed: {{currentWeatherData?.windSpeed}} m/h</span>
+  </div>
+</section>

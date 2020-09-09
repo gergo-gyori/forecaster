@@ -11,13 +11,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
+import { CurrentWeatherWidgetComponent } from './components/weather-forecast/current-weather-widget/current-weather-widget.component';
+import { ForecastLineChartComponent } from './components/weather-forecast/forecast-line-chart/forecast-line-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AuthComponent,
-    WeatherForecastComponent
+    WeatherForecastComponent,
+    CurrentWeatherWidgetComponent,
+    ForecastLineChartComponent
   ],
   imports: [
     BrowserModule,
