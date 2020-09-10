@@ -14,6 +14,7 @@ export class CityDialogComponent implements OnInit {
   dialogMode = 'remove';
   invalidCity = false;
 
+  weatherDb: any[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -22,12 +23,20 @@ export class CityDialogComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.readWeatherDb();
   }
 
   onAddCity(city: string) {
-    this.weatherService.fetchCurrentWeather(city).subscribe(weatherData => {
 
-      // save data
+
+    this.weatherService.fetchCurrentWeather(city).subscribe(success => {
+
+      this.weatherDb.push({
+        userId: JSON.parse(localStorage.getItem('activeUser')).id,
+        city
+      });
+      localStorage.setItem('weatherDb', JSON.stringify(this.weatherDb));
+
       this.dialog.closeAll();
     }, error => {
       this.invalidCity = true;
@@ -35,6 +44,14 @@ export class CityDialogComponent implements OnInit {
   }
 
   onRemoveCity(city: string) {
+    const newWeatherDb = this.weatherDb.filter(el => el.city !== city);
+    localStorage.setItem('weatherDb', JSON.stringify(newWeatherDb));
     this.dialog.closeAll();
+  }
+
+  readWeatherDb() {
+    if (localStorage.getItem('weatherDb') !== null) {
+      this.weatherDb = JSON.parse(localStorage.getItem('weatherDb'));
+    }
   }
 }

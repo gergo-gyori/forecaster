@@ -1,5 +1,4 @@
 <div class="dialog">
-
   <div *ngIf="data.mode === 'add'" class="dialog__add">
     <h3 mat-dialog-title class="dialog__title">Please provide a city for weather information!</h3>
     <mat-dialog-content>
@@ -11,20 +10,17 @@
         <div class="dialog__error" *ngIf="invalidCity">Please provide a valid city.</div>
       </form>
     </mat-dialog-content>  
-  
     <mat-dialog-actions>
       <button mat-raised-button [disabled]="!f.valid"  class="dialog__btn-add" (click)="onAddCity(f.value.city)">Add</button>
     </mat-dialog-actions>
   </div>
 
   <div *ngIf="data.mode === 'remove'" class="dialog__remove">
-    <h3 mat-dialog-title class="dialog__title">Are you sure you want to remove weather information for '{{city}}'?</h3>
+    <h3 mat-dialog-title class="dialog__title">Are you sure you want to remove weather information for '{{data.city | titlecase}}'?</h3>
     <mat-dialog-actions>
-      <button mat-raised-button class="dialog__btn-delete" (click)="onRemoveCity(city)">Delete</button>
-      <button mat-raised-button mat-dialog-close class="dialog__btn-cancel">Cancel</button>
+      <button mat-raised-button class="dialog__btn-delete" (click)="onRemoveCity(data.city)">Delete</button>
+      <button mat-raised-button mat-dialog-close="cancelled" class="dialog__btn-cancel">Cancel</button>
     </mat-dialog-actions>
-
   </div>
-
 </div>
 

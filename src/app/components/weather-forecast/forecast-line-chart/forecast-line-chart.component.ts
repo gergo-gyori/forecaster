@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-forecast-line-chart',
@@ -6,11 +7,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./forecast-line-chart.component.scss']
 })
 export class ForecastLineChartComponent implements OnInit {
-  @Input() forecastData: any[] = [];
+  @Input() city: string;
+  forecastData: any[] = [];
 
-  constructor() { }
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
+    this.getFiveDayForecast();
+  }
+
+  getFiveDayForecast() {
+    this.weatherService.fetchFiveDayForecast(this.city).subscribe(forecastData => {
+      this.forecastData = forecastData;
+      console.log(this.forecastData);
+    }, error => {
+      // this.error = true;
+    });
   }
 
 }

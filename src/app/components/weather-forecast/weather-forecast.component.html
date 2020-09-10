@@ -1,19 +1,27 @@
 <mat-tab-group animationDuration="1000ms" class="weather">
+
+  <mat-tab *ngFor="let weatherRecord of usersWeatherData" [label]="weatherRecord?.city | uppercase">
+    <ng-template style="color: red" mat-tab-label>{{weatherRecord.city | uppercase}}
+      <mat-icon class="weather__remove-btn" (click)="openRemoveCityDialog(weatherRecord?.city)">delete</mat-icon>
+    </ng-template>
+    <div *ngIf="!error" class="weather__content">
+      <app-current-weather-widget [city]="weatherRecord?.city"></app-current-weather-widget>
+      <app-forecast-line-chart [city]="weatherRecord?.city"></app-forecast-line-chart>
+    </div>
+
+    <div *ngIf="error">
+      <h3 class="weather__error" style="text-align: center; padding: 2rem;">
+        We' re sorry. Something went wrong with your request. Please try again later.
+      </h3>
+    </div>
+  </mat-tab>
+
   <mat-tab>
     <ng-template mat-tab-label>
       <button class="weather__add-btn" (click)="openAddCityDialog()" mat-button>
         <mat-icon>add</mat-icon>
       </button>
     </ng-template>
-    <div class="weather__content">
-      <app-current-weather-widget [currentWeatherData]="currentWeatherData"></app-current-weather-widget>
-      <app-forecast-line-chart [forecastData]="forecastData"></app-forecast-line-chart>
-    </div>
   </mat-tab>
 
-  <mat-tab>
-    <ng-template mat-tab-label>
-        <mat-icon class="weather__remove-btn" (click)="openRemoveCityDialog()">delete</mat-icon>
-    </ng-template>
-  </mat-tab>
 </mat-tab-group>

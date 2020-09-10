@@ -1,12 +1,13 @@
+<!-- XAxisLabel is broken sometimes -->
 <section class="weather__forecast">
   <ngx-charts-line-chart
-  [view]="[700,400]"
+  [view]="[600,300]"
   [scheme]="{domain: ['#0066ff']}"
   [results]="forecastData"
   [xAxis]="true"
   [yAxis]="true"
   [legend]="true"
-  [showXAxisLabel]="true"
+  [showXAxisLabel]="false"
   [showYAxisLabel]="true"
   [xAxisLabel]="'5 Day / 3 Hour Forecast'"
   [yAxisLabel]="'Temperature (&#8451;)'"
