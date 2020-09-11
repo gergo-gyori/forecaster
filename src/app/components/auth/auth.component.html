@@ -13,8 +13,9 @@
       <button mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden" [attr.aria-pressed]="passwordHidden">
         <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      <mat-hint *ngIf="f.value.password && !passwordValid">Minimum of 4 characters</mat-hint>
+      <mat-hint *ngIf="f.value.password && !passwordShort">Minimum of 4 characters</mat-hint>
     </mat-form-field>
+    <div *ngIf="!passwordValid" class="login__error">Invalid password!</div>
   </div>
   <button mat-raised-button type="submit" [disabled]="!f.valid" class="login__btn">Sign in</button>
 </form>

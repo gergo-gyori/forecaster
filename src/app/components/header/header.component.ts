@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,26 +10,23 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   appTitle = 'Forecaster';
-  activeUser: any;
+  activeUser: User;
   activeUserSubscription: Subscription;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
     this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
     this.activeUserSubscription = this.authService.activeUserChanged.subscribe(activeUser => {
       this.activeUser = activeUser;
     });
   }
 
-  ngOnInit() {
-  }
-
   onLogout() {
     this.authService.logout();
-    this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
   }
 
   ngOnDestroy() {
     this.activeUserSubscription.unsubscribe();
   }
-
 }
