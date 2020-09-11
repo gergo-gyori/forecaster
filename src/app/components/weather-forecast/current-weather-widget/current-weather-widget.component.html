@@ -6,14 +6,14 @@
   </div>
 
   <div class="weather__current-heading">
-    <div class="weather__current-city">{{currentWeatherData?.city | uppercase}}</div>
-    <div class="weather__current-temp">{{currentWeatherData?.temperature}}&#176;</div>
+    <span>{{currentWeatherData?.city | uppercase}}</span>
+    <span>{{currentWeatherData?.temperature}}&#176;</span>
   </div>
 
   <div class="weather__current-details">
-    <div class="weather__current-humidity">Humidity: {{currentWeatherData?.humidity}}%</div>
-    <div class="weather__current-pressure">Atm pressure: {{currentWeatherData?.atmosphericPressure}} hPa</div>
-    <span class="weather__current-wind-direction">Wind direction: {{currentWeatherData?.windDirection}}&#176;</span>
-    <span class="weather__current-wind-speed">Wind speed: {{currentWeatherData?.windSpeed}} m/h</span>
+    <span>Humidity: {{currentWeatherData?.humidity}}%</span>
+    <span>Atm pressure: {{currentWeatherData?.atmosphericPressure}} hPa</span>
+    <span>Wind direction: {{currentWeatherData?.windDirection}}&#176;</span>
+    <span>Wind speed: {{currentWeatherData?.windSpeed}} m/h</span>
   </div>
 </section>

@@ -1,0 +1,18 @@
+$bp-medium: 75em; // 1200px
+$bp-small: 50em; // 800px
+
+.weather__forecast {
+  width: 70rem;
+  height: 35rem;
+
+  @media only screen and (max-width: $bp-medium) {
+    width: 50rem;
+    height: 25rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    width: 90vw;
+    height: 15rem;
+    padding-top: 2rem;
+  }
+}

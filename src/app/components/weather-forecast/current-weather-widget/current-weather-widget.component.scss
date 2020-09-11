@@ -1,11 +1,29 @@
+$bp-medium: 75em; // 1200px
+$bp-small: 50em; // 800px
+$bp-xsmall: 31.25em; // 500px
+$bp-xxsmall: 21.875em; // 350px
+
 .weather__current {
   display: grid;
   justify-content: center;
   justify-items: center;
 
-  padding: 2rem 4rem 2rem 4rem;
+  padding: 2rem;
   border-radius: 5%;
   color: #fff;
+  width: 23rem;
+
+  @media only screen and (max-width: $bp-medium) {
+    width: 20rem;
+    padding: 1rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    grid-auto-flow: column;
+    width: 90vw;
+    justify-content: space-evenly;
+    border-radius: 0;
+  }
 
   & > * {
     cursor: default;
@@ -20,10 +38,30 @@
     font-weight: 400;
     padding: 2rem;
 
-    & div:nth-child(2) {
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+
+    @media only screen and (max-width: $bp-xxsmall) {
+      font-size: 1.2rem;
+      padding: 0.7rem;
+    }
+
+    & span:nth-child(2) {
       font-size: 6rem;
       font-weight: 100;
       padding: 4rem 1rem 2rem 2rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        font-size: 4.5rem;
+        padding: 2rem 1rem 1rem 2rem;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+        font-size: 3rem;
+        padding: 1rem 0.5rem 0.5rem 1rem;
+      }
     }
   }
 
@@ -33,6 +71,10 @@
     align-content: center;
 
     padding: 1rem;
+
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.2rem;
+    }
   }
 
   &-day {
@@ -54,13 +96,24 @@
       url("../../../../assets/night.jpg");
   }
 
-  &-icon > * {
-    font-size: 4rem;
-    color: rgb(255, 255, 112);
-    text-shadow: 0 0 0.5rem #fff, 0 0 1rem #fff,
-      0 0 1rem rgba(128, 246, 240, 0.966), 0 0 2rem rgba(122, 243, 237, 0.966),
-      0 0 2rem rgba(214, 253, 251, 0.966), 0 0 2rem rgba(214, 253, 251, 0.966),
-      0 0 2rem rgba(214, 253, 251, 0.966);
-    margin-left: -1rem;
+  &-icon {
+    @media only screen and (max-width: $bp-small) {
+      padding-top: 1rem;
+    }
+
+    & > * {
+      font-size: 4rem;
+      color: rgb(255, 255, 112);
+      text-shadow: 0 0 0.5rem #fff, 0 0 1rem #fff,
+        0 0 1rem rgba(128, 246, 240, 0.966), 0 0 2rem rgba(122, 243, 237, 0.966),
+        0 0 2rem rgba(214, 253, 251, 0.966), 0 0 2rem rgba(214, 253, 251, 0.966),
+        0 0 2rem rgba(214, 253, 251, 0.966);
+      margin-left: -1rem;
+
+      @media only screen and (max-width: $bp-xsmall) {
+        font-size: 2.5rem;
+        padding-left: 1rem;
+      }
+    }
   }
 }
