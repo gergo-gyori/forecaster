@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { City, CityService } from 'src/app/services/city.service';
 import { CityDialogComponent } from './city-dialog/city-dialog.component';
 
 @Component({
@@ -9,38 +10,37 @@ import { CityDialogComponent } from './city-dialog/city-dialog.component';
   styleUrls: ['./weather-forecast.component.scss']
 })
 export class WeatherForecastComponent implements OnInit {
-  usersWeatherData: any[] = [];
+  usersCities: City[] = [];
   error = false;
   tabIndex = 0;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private cityService: CityService) { }
 
   ngOnInit() {
-    this.readWeatherDb();
+    this.getCitiesByUserId();
+  }
+
+  getCitiesByUserId() {
+    const id = JSON.parse(localStorage.getItem('activeUser')).id;
+    this.cityService.fetchCitiesByUserId(id).subscribe(filteredCities => {
+      this.usersCities = filteredCities;
+    });
   }
 
   openAddCityDialog() {
     let dialogRef = this.dialog.open(CityDialogComponent, { data: { mode: 'add' } });
-
     dialogRef.afterClosed().subscribe(result => {
-      this.readWeatherDb();
+      this.getCitiesByUserId();
     });
   }
 
   openRemoveCityDialog(city: string) {
     let dialogRef = this.dialog.open(CityDialogComponent, { data: { mode: 'remove', city } });
-
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== 'cancelled') this.readWeatherDb();
+      if (result !== 'cancelled') {
+        this.getCitiesByUserId();
+      }
     });
-  }
-
-  readWeatherDb() {
-    if (localStorage.getItem('weatherDb') !== null) {
-      const db = JSON.parse(localStorage.getItem('weatherDb'));
-      const userId = JSON.parse(localStorage.getItem('activeUser')).id;
-      this.usersWeatherData = db.filter(el => el.userId === userId);
-    }
   }
 
   handleError(error: boolean) {
@@ -52,5 +52,4 @@ export class WeatherForecastComponent implements OnInit {
     this.error = false; // Resetting error to be able to recall the API after a potential API error has occurred
     this.tabIndex = index;
   }
-
 }

@@ -7,13 +7,13 @@ import { WeatherData } from '../models/weather-data.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class WeatherService {
   apiKey = 'e4edd2bd339b9006f48f4e517e2a60f0';
   currentWeatherData: any;
   forecastWeatherData: any;
 
   constructor(private http: HttpClient) { }
-
 
   fetchCurrentWeather(city: string): Observable<WeatherData> {
     return this.http.get<Observable<any>>(
@@ -26,7 +26,6 @@ export class WeatherService {
         return data;
       }));
   }
-
 
   initCurrentWeatherData(city: string, weatherData: any): WeatherData {
     const data: WeatherData = {
@@ -77,3 +76,5 @@ export class WeatherService {
   }
 
 }
+
+
