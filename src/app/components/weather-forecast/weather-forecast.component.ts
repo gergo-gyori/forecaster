@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { WeatherData } from 'src/app/models/weather-data.model';
-import { WeatherService } from 'src/app/services/weather.service';
 import { CityDialogComponent } from './city-dialog/city-dialog.component';
 
 @Component({
