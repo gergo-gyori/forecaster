@@ -27,6 +27,7 @@ export class WeatherService {
       }));
   }
 
+
   initCurrentWeatherData(city: string, weatherData: any): WeatherData {
     const data: WeatherData = {
       userId: JSON.parse(localStorage.getItem('activeUser')).id,
@@ -76,5 +77,4 @@ export class WeatherService {
   }
 
 }
-
 

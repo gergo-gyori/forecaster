@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,20 +11,25 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit{
+export class AuthComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) loginForm: NgForm;
   passwordHidden = true;
   passwordShort = true;
   passwordValid = true;
   passwordSubscription: Subscription;
+  activeUser: User;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
     this.passwordSubscription = this.authService.passwordValid.subscribe(passwordValid => {
       this.passwordValid = passwordValid;
-      console.log(this.passwordValid);
     });
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('activeUser') !== 'null';
   }
 
   onCheckPasswordLength() {
@@ -33,7 +40,17 @@ export class AuthComponent implements OnInit{
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password);
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
+  navigateToForecasts() {
+    this.router.navigate(['/weatherforecast']);
+  }
+
   ngOnDestroy() {
-    this.passwordSubscription.unsubscribe();
+    if (this.passwordSubscription) {
+      this.passwordSubscription.unsubscribe();
+    }
   }
 }

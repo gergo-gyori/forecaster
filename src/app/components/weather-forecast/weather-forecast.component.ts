@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 import { City, CityService } from 'src/app/services/city.service';
 import { CityDialogComponent } from './city-dialog/city-dialog.component';
@@ -9,10 +10,11 @@ import { CityDialogComponent } from './city-dialog/city-dialog.component';
   templateUrl: './weather-forecast.component.html',
   styleUrls: ['./weather-forecast.component.scss']
 })
-export class WeatherForecastComponent implements OnInit {
+export class WeatherForecastComponent implements OnInit, OnDestroy {
   usersCities: City[] = [];
   error = false;
   tabIndex = 0;
+  citySubscription: Subscription;
 
   constructor(public dialog: MatDialog, private cityService: CityService) { }
 
@@ -22,7 +24,8 @@ export class WeatherForecastComponent implements OnInit {
 
   getCitiesByUserId() {
     const id = JSON.parse(localStorage.getItem('activeUser')).id;
-    this.cityService.fetchCitiesByUserId(id).subscribe(filteredCities => {
+    this.citySubscription = this.cityService.fetchCitiesByUserId(id).subscribe(filteredCities => {
+      console.log(filteredCities);
       this.usersCities = filteredCities;
     });
   }
@@ -51,5 +54,11 @@ export class WeatherForecastComponent implements OnInit {
   tabChange(index) {
     this.error = false; // Resetting error to be able to recall the API after a potential API error has occurred
     this.tabIndex = index;
+  }
+
+  ngOnDestroy() {
+    if (this.citySubscription) {
+      this.citySubscription.unsubscribe();
+    }
   }
 }

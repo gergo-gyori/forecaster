@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy{
   users: User[];
   activeUserChanged = new Subject<any>();
   passwordValid = new Subject<boolean>();
+  userSubscription: Subscription;
 
   constructor(private router: Router, private userService: UserService) {
-    this.userService.fetchUsers().subscribe(users => { this.users = users; });
+    this.userSubscription = this.userService.fetchUsers().subscribe(users => { this.users = users; });
   }
 
   login(username: string, password: string) {
@@ -34,6 +35,12 @@ export class AuthService {
     localStorage.setItem('activeUser', JSON.stringify(null));
     this.activeUserChanged.next(null);
     this.router.navigate(['auth']);
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
 }

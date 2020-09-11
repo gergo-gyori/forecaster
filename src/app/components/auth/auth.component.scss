@@ -1,5 +1,11 @@
-.login {
+$color-primary: rgb(58, 51, 51);
+$bp-xxsmall: 21.875em; // 350px
+
+.auth-container {
   margin-top: 50%;
+}
+
+.login {
   display: grid;
   justify-items: center;
 
@@ -8,7 +14,7 @@
   }
 
   &__btn {
-    background-color: rgb(58, 51, 51);
+    background-color: $color-primary;
     color: #fff;
   }
 
@@ -21,4 +27,31 @@
 
 div:nth-child(2) {
   margin-top: -0.5rem;
+}
+
+.logged__in {
+  display: grid;
+  row-gap: 1rem;
+  justify-items: center;
+  grid-template-rows: max-content;
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & > * {
+      margin: 1rem;
+      width: 13rem;
+      color: #fff;
+    }
+
+    &-forecast {
+      background-color: rgb(6, 221, 156);
+    }
+
+    &-logout {
+      background-color: $color-primary;
+    }
+  }
 }

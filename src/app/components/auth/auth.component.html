@@ -1,21 +1,34 @@
-<form class="login" (ngSubmit)="onLogin()" #f="ngForm">
-  <div>
-    <mat-form-field appearance="outline" class="login__input">
-      <mat-label>Username</mat-label>
-      <input matInput placeholder="Enter your username" ngModel name="username" required>
-    </mat-form-field>
+<div class="auth-container">
+
+  <form *ngIf="!isLoggedIn()" class="login" (ngSubmit)="onLogin()" #f="ngForm">
+    <div>
+      <mat-form-field appearance="outline" class="login__input">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Enter your username" ngModel name="username" required>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="login__input">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Enter your password" ngModel name="password" required minlength="4" maxlength="8"
+          [type]="passwordHidden ? 'password' : 'text'" (input)="onCheckPasswordLength()">
+        <button mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden"
+          [attr.aria-pressed]="passwordHidden">
+          <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint *ngIf="f.value.password && !passwordShort">Minimum of 4 characters</mat-hint>
+      </mat-form-field>
+      <div *ngIf="!passwordValid" class="login__error">Invalid password!</div>
+    </div>
+    <button mat-raised-button type="submit" [disabled]="!f.valid" class="login__btn">Sign in</button>
+  </form>
+
+  <div *ngIf="isLoggedIn()" class="logged__in">
+    <h2>Hi, {{activeUser.username}}!</h2>
+    <div class="logged__in__cta">
+      <button mat-raised-button class="logged__in__cta-forecast" (click)="navigateToForecasts()">My Forecasts</button>
+      <button mat-raised-button class="logged__in__cta-logout" (click)="onLogout()">Logout</button>
+    </div>
   </div>
-  <div>
-    <mat-form-field appearance="outline" class="login__input">
-      <mat-label>Password</mat-label>
-      <input matInput placeholder="Enter your password" ngModel name="password" required minlength="4" maxlength="8"
-        [type]="passwordHidden ? 'password' : 'text'" (input)="onCheckPasswordLength()">
-      <button mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden" [attr.aria-pressed]="passwordHidden">
-        <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-hint *ngIf="f.value.password && !passwordShort">Minimum of 4 characters</mat-hint>
-    </mat-form-field>
-    <div *ngIf="!passwordValid" class="login__error">Invalid password!</div>
-  </div>
-  <button mat-raised-button type="submit" [disabled]="!f.valid" class="login__btn">Sign in</button>
-</form>
+
+</div>
