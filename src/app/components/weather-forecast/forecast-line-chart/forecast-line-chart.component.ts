@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class ForecastLineChartComponent implements OnInit {
   @Input() city: string;
+  @Output() errorEvent = new EventEmitter();
   forecastData: any[] = [];
 
   constructor(private weatherService: WeatherService) { }
@@ -19,9 +20,8 @@ export class ForecastLineChartComponent implements OnInit {
   getFiveDayForecast() {
     this.weatherService.fetchFiveDayForecast(this.city).subscribe(forecastData => {
       this.forecastData = forecastData;
-      console.log(this.forecastData);
     }, error => {
-      // this.error = true;
+      this.errorEvent.emit(true);
     });
   }
 

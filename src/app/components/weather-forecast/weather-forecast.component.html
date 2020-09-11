@@ -1,16 +1,17 @@
-<mat-tab-group animationDuration="1000ms" class="weather">
+<mat-tab-group animationDuration="1000ms" class="weather" (selectedIndexChange)="tabChange($event)">
   <mat-tab *ngFor="let weatherRecord of usersWeatherData" [label]="weatherRecord?.city | uppercase">
     <ng-template mat-tab-label>{{weatherRecord.city | uppercase}}
       <mat-icon class="weather__remove-btn" (click)="openRemoveCityDialog(weatherRecord?.city)">delete</mat-icon>
     </ng-template>
-    <div *ngIf="!error" class="weather__content">
-      <app-current-weather-widget [city]="weatherRecord?.city"></app-current-weather-widget>
-      <app-forecast-line-chart [city]="weatherRecord?.city"></app-forecast-line-chart>
+    <div *ngIf="!error && weatherRecord?.city === usersWeatherData[tabIndex]?.city" class="weather__content">
+      <app-current-weather-widget [city]="weatherRecord?.city" (errorEvent)="handleError($event)"></app-current-weather-widget>
+      <app-forecast-line-chart [city]="weatherRecord?.city" (errorEvent)="handleError($event)"></app-forecast-line-chart>
     </div>
 
     <div *ngIf="error">
       <h3 class="weather__error">We' re sorry. Something went wrong with your request. Please try again later.</h3>
     </div>
+    
   </mat-tab>
 
   <mat-tab>

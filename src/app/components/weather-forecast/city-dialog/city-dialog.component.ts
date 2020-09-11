@@ -20,7 +20,7 @@ export class CityDialogComponent implements OnInit {
     private dialog: MatDialog,
     private weatherService: WeatherService,
     @Inject(MAT_DIALOG_DATA) public data: any
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.readWeatherDb();
@@ -28,15 +28,13 @@ export class CityDialogComponent implements OnInit {
 
   onAddCity(city: string) {
 
-
+    // Check if given city is found by the API
     this.weatherService.fetchCurrentWeather(city).subscribe(success => {
-
       this.weatherDb.push({
         userId: JSON.parse(localStorage.getItem('activeUser')).id,
         city
       });
       localStorage.setItem('weatherDb', JSON.stringify(this.weatherDb));
-
       this.dialog.closeAll();
     }, error => {
       this.invalidCity = true;

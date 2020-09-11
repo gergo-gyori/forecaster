@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { WeatherData } from 'src/app/models/weather-data.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -7,8 +7,9 @@ import { WeatherService } from 'src/app/services/weather.service';
   templateUrl: './current-weather-widget.component.html',
   styleUrls: ['./current-weather-widget.component.scss']
 })
-export class CurrentWeatherWidgetComponent implements OnInit {
+export class CurrentWeatherWidgetComponent implements OnInit{
   @Input() city: string;
+  @Output() errorEvent = new EventEmitter();
   currentWeatherData: WeatherData;
 
   constructor(private weatherService: WeatherService) { }
@@ -21,7 +22,7 @@ export class CurrentWeatherWidgetComponent implements OnInit {
     this.weatherService.fetchCurrentWeather(this.city).subscribe(currentWeatherData => {
       this.currentWeatherData = currentWeatherData;
     }, error => {
-      // this.error = true;
+      this.errorEvent.emit(true);
     });
   }
 
