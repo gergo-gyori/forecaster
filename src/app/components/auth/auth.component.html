@@ -11,7 +11,7 @@
         <mat-label>Password</mat-label>
         <input matInput placeholder="Enter your password" ngModel name="password" required minlength="4" maxlength="8"
           [type]="passwordHidden ? 'password' : 'text'" (input)="onCheckPasswordLength()">
-        <button mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden"
+        <button type="button" mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden"
           [attr.aria-pressed]="passwordHidden">
           <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
