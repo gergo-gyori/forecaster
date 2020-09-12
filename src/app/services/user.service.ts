@@ -14,7 +14,7 @@ export class UserService {
     const id = (this.users.length > 0) ? this.users[this.users.length - 1].id + 1 : 0;
     const user: User = {
       id,
-      username,
+      username: username.toLowerCase(),
       password
     };
 

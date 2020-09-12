@@ -17,19 +17,25 @@ export class AuthComponent implements OnInit, OnDestroy {
   passwordShort = true;
   passwordValid = true;
   passwordSubscription: Subscription;
+  activeUserSubscription: Subscription;
   activeUser: User;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.activeUser = JSON.parse(localStorage.getItem('activeUser'));
+
+    this.activeUserSubscription = this.authService.activeUserChanged.subscribe(activeUser => {
+      this.activeUser = activeUser;
+    });
+
     this.passwordSubscription = this.authService.passwordValid.subscribe(passwordValid => {
       this.passwordValid = passwordValid;
     });
   }
 
   isLoggedIn(): boolean {
-    return localStorage.getItem('activeUser') !== 'null';
+    return this.activeUser !== null;
   }
 
   onCheckPasswordLength() {
@@ -51,6 +57,10 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.passwordSubscription) {
       this.passwordSubscription.unsubscribe();
+    }
+
+    if (this.activeUserSubscription) {
+      this.activeUserSubscription.unsubscribe();
     }
   }
 }

@@ -18,7 +18,7 @@ export class AuthService implements OnDestroy{
   }
 
   login(username: string, password: string) {
-    let registeredUser = this.users.find(user => user.username === username);
+    let registeredUser = this.users.find(user => user.username.toLowerCase() === username.toLowerCase());
     if (registeredUser && registeredUser.password !== password) {
       this.passwordValid.next(false);
       return;
@@ -28,7 +28,6 @@ export class AuthService implements OnDestroy{
 
     localStorage.setItem('activeUser', JSON.stringify(registeredUser));
     this.activeUserChanged.next(registeredUser);
-    this.router.navigate(['weatherforecast']);
   }
 
   logout() {
