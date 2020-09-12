@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
-import { City, CityService } from 'src/app/services/city.service';
+import { City } from 'src/app/models/city.model';
+import { CityService } from 'src/app/services/city.service';
 import { CityDialogComponent } from './city-dialog/city-dialog.component';
 
 @Component({
@@ -25,7 +26,6 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   getCitiesByUserId() {
     const id = JSON.parse(localStorage.getItem('activeUser')).id;
     this.citySubscription = this.cityService.fetchCitiesByUserId(id).subscribe(filteredCities => {
-      console.log(filteredCities);
       this.usersCities = filteredCities;
     });
   }
@@ -33,14 +33,16 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   openAddCityDialog() {
     let dialogRef = this.dialog.open(CityDialogComponent, { data: { mode: 'add' } });
     dialogRef.afterClosed().subscribe(result => {
-      this.getCitiesByUserId();
+      this.tabIndex = 0;
+        this.getCitiesByUserId();
     });
   }
 
-  openRemoveCityDialog(city: string) {
+  openRemoveCityDialog(city: City) {
     let dialogRef = this.dialog.open(CityDialogComponent, { data: { mode: 'remove', city } });
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== 'cancelled') {
+      if (result === 'deleted') {
+        this.tabIndex -= 1;
         this.getCitiesByUserId();
       }
     });

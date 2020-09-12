@@ -2,7 +2,8 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
-import { City, CityService } from 'src/app/services/city.service';
+import { City } from 'src/app/models/city.model';
+import { CityService } from 'src/app/services/city.service';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -25,7 +26,6 @@ export class CityDialogComponent implements OnDestroy{
   onAddCity(city: string) {
     // Check if given city is found by the API
     this.weatherSubscription = this.weatherService.fetchCurrentWeather(city).subscribe(success => {
-
       this.cityService.addCity(city);
       this.dialog.closeAll();
     }, error => {
@@ -33,9 +33,8 @@ export class CityDialogComponent implements OnDestroy{
     });
   }
 
-  onRemoveCity(city: string) {
-    this.cityService.removeCity(city);
-    this.dialog.closeAll();
+  onRemoveCity(cityId: number) {
+    this.cityService.removeCity(cityId);
   }
 
   ngOnDestroy(){

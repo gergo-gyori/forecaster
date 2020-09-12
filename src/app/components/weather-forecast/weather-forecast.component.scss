@@ -1,4 +1,4 @@
-$bp-small: 50em; // 800px
+@import '../../../variables.scss';
 
 .weather {
   width: 90vw;
@@ -27,7 +27,8 @@ $bp-small: 50em; // 800px
     font-size: 2rem;
   }
 
-  &__error {
+  &__error,
+  &__empty {
     text-align: center;
     padding: 2rem;
   }

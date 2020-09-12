@@ -1,5 +1,4 @@
 <div class="auth-container">
-
   <form *ngIf="!isLoggedIn()" class="login" (ngSubmit)="onLogin()" #f="ngForm">
     <div>
       <mat-form-field appearance="outline" class="login__input">
@@ -21,6 +20,7 @@
       <div *ngIf="!passwordValid" class="login__error">Invalid password!</div>
     </div>
     <button mat-raised-button type="submit" [disabled]="!f.valid" class="login__btn">Sign in</button>
+    <span class="login__info">Automatic signup upon providing new username</span>
   </form>
 
   <div *ngIf="isLoggedIn()" class="logged__in">
@@ -30,5 +30,4 @@
       <button mat-raised-button class="logged__in__cta-logout" (click)="onLogout()">Logout</button>
     </div>
   </div>
-
 </div>

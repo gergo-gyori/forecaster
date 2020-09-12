@@ -1,5 +1,4 @@
-$bp-medium: 75em; // 1200px
-$bp-small: 50em; // 800px
+@import '../../../../variables.scss';
 
 .weather__forecast {
   width: 70rem;

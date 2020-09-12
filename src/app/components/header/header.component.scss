@@ -1,7 +1,9 @@
+@import '../../../variables.scss';
+
 .header {
   position: fixed;
   display: flex;
-  background-color: rgb(58, 51, 51);
+  background-color: $color-primary;
   color: #fff;
   padding: 2rem 3rem 2rem 3rem;
 

@@ -16,9 +16,9 @@
   </div>
 
   <div *ngIf="data.mode === 'remove'" class="dialog__remove">
-    <h3 mat-dialog-title class="dialog__title">Are you sure you want to remove weather information for '{{data.city | titlecase}}'?</h3>
+    <h3 mat-dialog-title class="dialog__title">Are you sure you want to remove weather information for '{{data.city.city | titlecase}}' ?</h3>
     <mat-dialog-actions>
-      <button mat-raised-button class="dialog__btn-delete" (click)="onRemoveCity(data.city)">Delete</button>
+      <button mat-raised-button mat-dialog-close="deleted" class="dialog__btn-delete" (click)="onRemoveCity(data.city.cityId)">Delete</button>
       <button mat-raised-button mat-dialog-close="cancelled" class="dialog__btn-cancel">Cancel</button>
     </mat-dialog-actions>
   </div>

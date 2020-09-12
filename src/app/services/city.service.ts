@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { City } from '../models/city.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,19 @@ export class CityService {
   constructor() { }
 
   addCity(cityName: string) {
+    const cityId = (this.cities.length > 0) ? this.cities[this.cities.length - 1].cityId + 1 : 0;
     const city: City = {
       userId: JSON.parse(localStorage.getItem('activeUser')).id,
+      cityId,
       city: cityName
     };
     this.cities.push(city);
     localStorage.setItem('cities', JSON.stringify(this.cities));
   }
 
-  removeCity(city: string) {
+  removeCity(cityId: number) {
     this.fetchCities();
-    const newCities = this.cities.filter(el => el.city !== city);
+    const newCities = this.cities.filter(el => el.cityId !== cityId);
     localStorage.setItem('cities', JSON.stringify(newCities));
   }
 
@@ -37,7 +40,4 @@ export class CityService {
 
 }
 
-export interface City {
-  userId: number;
-  city: string;
-}
+

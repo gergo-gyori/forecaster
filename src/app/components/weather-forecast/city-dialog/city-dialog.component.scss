@@ -1,5 +1,6 @@
-.dialog {
+@import "../../../../variables.scss";
 
+.dialog {
   &__add,
   &__remove {
     display: grid;
@@ -11,24 +12,20 @@
   }
 
   &__btn {
-    &-add {
-      background-color: rgb(77, 62, 62);
-      color: #fff;
-    }
-  
-    &-delete {
-      background-color: rgb(255, 53, 17);
-      color: #fff;
-    }
-  
+    &-add,
     &-cancel {
-      background-color: rgb(77, 62, 62);
-      color: #fff;
+      background-color: $color-primary;
+      color: $color-btn-text;
+    }
+
+    &-delete {
+      background-color: $color-warning;
+      color: $color-btn-text;
     }
   }
-  
+
   &__error {
-    color: red;
+    color: $color-warning;
     text-align: center;
   }
 }
