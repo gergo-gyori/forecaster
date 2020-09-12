@@ -42,7 +42,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(CityDialogComponent, { data: { mode: 'remove', city } });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'deleted') {
-        this.tabIndex -= 1;
+        this.tabIndex = 0;
         this.getCitiesByUserId();
       }
     });
